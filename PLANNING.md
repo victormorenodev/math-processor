@@ -9,7 +9,15 @@ Frontend stack: React with TypeScript
 Docker for a quick setup
 
 ## Project structure
-TODO
+backend/
+  app/
+    main.py          
+    models.py
+    store.py
+    processing.py
+    routers/
+      requests.py      
+  requirements.txt
 
 ## Assumptions
 - All data must be validated, so we should not accept strings for the data processing;
