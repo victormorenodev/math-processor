@@ -42,3 +42,6 @@ def append_log(id: str, message: str) -> None:
     if request is None:
         return
     request.logs.append(message)
+
+def clear_all() -> None:
+    _requests.clear()

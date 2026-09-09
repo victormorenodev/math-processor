@@ -12,6 +12,11 @@ async def create_request(payload: CreateRequestPayload) -> ProcessRequest:
 def list_requests() -> list[ProcessRequest]:
     return store.get_all()
 
+@router.delete("/requests")
+async def clear_requests() -> dict[str, str]:
+    processing.clear_all()
+    return {"detail": "All requests cleared"}
+
 @router.get("/requests/{request_id}")
 def get_request(request_id: str) -> ProcessRequest:
     request = store.get(request_id)

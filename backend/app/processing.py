@@ -31,6 +31,12 @@ def cancel(request_id: str) -> ProcessRequest:
     store.append_log(request_id, "Cancelled by user.")
     return store.get(request_id)
 
+def clear_all() -> None:
+    for task in _tasks.values():
+        task.cancel()
+    _tasks.clear()
+    store.clear_all()
+
 async def process(request_id: str, numbers: list[int]) -> None:
     try:
         store.update(request_id, status="processing", progress=0)
