@@ -11,8 +11,22 @@ Async Process Tracker — accepts a list of numbers, processes it in the backgro
 
 - Python 3.10+
 - Node.js 18+
+- `make` (optional, but recommended — see below)
 
-## Running the backend
+## Quick start
+
+```bash
+make setup   # creates the backend venv and installs both dependency sets
+make dev     # runs backend and frontend together; Ctrl+C stops both
+```
+
+Backend at `http://localhost:8000`, frontend at `http://localhost:5173`. That's it — skip to [Using the app](#using-the-app).
+
+## Manual setup
+
+If you don't have `make`, run each side yourself, in two terminals.
+
+### Backend
 
 ```bash
 cd backend
@@ -24,7 +38,7 @@ uvicorn app.main:app --reload
 
 The API runs at `http://localhost:8000`. Interactive docs (Swagger) at `http://localhost:8000/docs`.
 
-## Running the frontend
+### Frontend
 
 In a separate terminal:
 
