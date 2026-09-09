@@ -6,18 +6,34 @@ for most software solutions out there.
 ## Technical decisions
 Backend stack: FastAPI with asyncio
 Frontend stack: React with TypeScript
-Docker for a quick setup
+Makefile for a quick setup (`make setup` creates the venv and installs both dependency sets, `make dev` runs backend and frontend together with a single command and Ctrl+C stops both). Originally planned to use Docker for this, but switched to a Makefile: it keeps the setup to tooling the reviewer already has installed (Python, Node, make), avoids image build/rebuild time during development, and is enough for a two-process local app that doesn't need containerization's isolation or deployment benefits.
 
 ## Project structure
+Makefile
+README.md
+PLANNING.md
 backend/
+  requirements.txt
   app/
-    main.py          
+    main.py
     models.py
     store.py
     processing.py
     routers/
-      requests.py      
-  requirements.txt
+      requests.py
+frontend/
+  package.json
+  index.html
+  src/
+    main.tsx
+    index.css
+    App.tsx
+    api.ts
+    types.ts
+    pages/
+      RequestList.tsx
+      NewRequest.tsx
+      RequestDetail.tsx
 
 ## Assumptions
 - All data must be validated, so we should not accept strings for the data processing;
