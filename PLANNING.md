@@ -22,6 +22,7 @@ backend/
 ## Assumptions
 - All data must be validated, so we should not accept strings for the data processing;
 - CORS is a must here;
+- Added an extra 3-second pause between reaching 70% progress and the completed status, so the intermediate progress state is actually visible to a client polling every second, instead of jumping straight from 70 to 100 in the same instant.
 
 ## Expected difficulties
 State management
