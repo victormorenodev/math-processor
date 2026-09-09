@@ -15,22 +15,35 @@ export function RequestList() {
             .finally(() => setLoading(false));
     }, []);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>{error}</div>;
-    if (requests.length === 0) return <p>No requests yet.</p>;
+    if (loading) return <div className="page"><p className="meta">Loading...</p></div>;
+    if (error) return <div className="page"><p className="error-text">{error}</p></div>;
 
     return (
-        <div>
-            <Link to="/new">New request</Link>
-            <ul>
-                {requests.map((request) => (
-                    <li key={request.id}>
-                        <Link to={`/requests/${request.id}`}>
-                            {request.id} - {request.status} - {request.progress}%
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+        <div className="page">
+            <div className="page-header">
+                <h1>Requests</h1>
+                <Link to="/new" className="button">New request</Link>
+            </div>
+
+            {requests.length === 0 ? (
+                <p className="meta">No requests yet.</p>
+            ) : (
+                <ul className="list">
+                    {requests.map((request) => (
+                        <li key={request.id}>
+                            <Link to={`/requests/${request.id}`} className="card">
+                                <div className="card-row">
+                                    <span>{request.id}</span>
+                                    <span className="badge">{request.status}</span>
+                                </div>
+                                <div className="progress-track">
+                                    <div className="progress-fill" style={{ width: `${request.progress}%` }} />
+                                </div>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     )
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createRequest } from "../api";
 
 export function NewRequest() {
@@ -35,19 +35,24 @@ export function NewRequest() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Enter numbers (comma-separated):
-                <input
-                    value={numbers}
-                    onChange={(e) => setNumbers(e.target.value)}
-                    placeholder="2, 5, 0"
-                /> 
-            </label>
-            <button type="submit" disabled={submitting}>
-                {submitting ? "Creating..." : "Create"}
-            </button>
-            {error && <p>{error}</p>}
-        </form>
+        <div className="page">
+            <Link to="/" className="back-link">← Back</Link>
+            <h1>New request</h1>
+            <form onSubmit={handleSubmit}>
+                <div className="form-field">
+                    <label htmlFor="numbers">Numbers (comma-separated)</label>
+                    <input
+                        id="numbers"
+                        value={numbers}
+                        onChange={(e) => setNumbers(e.target.value)}
+                        placeholder="10, 20, 5"
+                    />
+                </div>
+                <button type="submit" disabled={submitting}>
+                    {submitting ? "Creating..." : "Create"}
+                </button>
+                {error && <p className="error-text" style={{ marginTop: 16 }}>{error}</p>}
+            </form>
+        </div>
     )
 }

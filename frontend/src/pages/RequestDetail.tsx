@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getRequest, cancelRequest } from "../api";
 import type { ProcessRequest } from "../types";
 
@@ -48,23 +48,46 @@ export function RequestDetail() {
         }
     }
 
-    if (error) return <p>{error}</p>;
-    if (!request) return <div>Loading...</div>;
+    if (error) return <div className="page"><p className="error-text">{error}</p></div>;
+    if (!request) return <div className="page"><p className="meta">Loading...</p></div>;
 
     const isFinal = request.status === "completed" || request.status === "error";
-    
+
     return (
-        <div>
-            <h2>Request {request.id}</h2>
-            <p>Status: {request.status}</p>
-            <p>Progress: {request.progress}%</p>
-            <ul>
+        <div className="page">
+            <Link to="/" className="back-link">← Back</Link>
+
+            <h1>Request</h1>
+            <p className="meta">{request.id}</p>
+
+            <div className="card-row" style={{ marginTop: 20 }}>
+                <span className="badge">{request.status}</span>
+                <span className="meta">{request.progress}%</span>
+            </div>
+            <div className="progress-track">
+                <div className="progress-fill" style={{ width: `${request.progress}%` }} />
+            </div>
+
+            <h2 style={{ marginTop: 24 }}>Logs</h2>
+            <ul className="logs">
                 {request.logs.map((log, index) => (
                     <li key={index}>{log}</li>
                 ))}
             </ul>
-            {request.result !== null && <p>Result: {request.result}</p>}
-            {!isFinal && <button onClick={handleCancel}>Cancel</button>}
+
+            {request.result !== null && (
+                <p className="meta" style={{ marginTop: 16 }}>Result: {request.result}</p>
+            )}
+
+            {!isFinal && (
+                <button
+                    onClick={handleCancel}
+                    className="button-secondary"
+                    style={{ marginTop: 24 }}
+                >
+                    Cancel
+                </button>
+            )}
         </div>
     );
 }
