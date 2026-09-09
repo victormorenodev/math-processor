@@ -55,7 +55,10 @@ export function RequestDetail() {
 
     return (
         <div className="page">
-            <Link to="/" className="back-link">← Back</Link>
+            <div className="page-header">
+                <Link to="/" className="back-link" style={{ marginBottom: 0 }}>← Back</Link>
+                <Link to="/new" className="button">New request</Link>
+            </div>
 
             <h1>Request</h1>
             <p className="meta">{request.id}</p>
