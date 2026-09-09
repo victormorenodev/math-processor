@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { listRequests } from "../api";
+import { clearRequests, listRequests } from "../api";
 import type { ProcessRequest } from "../types";
 
 export function RequestList() {
@@ -15,6 +15,15 @@ export function RequestList() {
             .finally(() => setLoading(false));
     }, []);
 
+    async function handleClear() {
+        try {
+            await clearRequests();
+            setRequests([]);
+        } catch {
+            setError("Failed to clear requests.");
+        }
+    }
+
     if (loading) return <div className="page"><p className="meta">Loading...</p></div>;
     if (error) return <div className="page"><p className="error-text">{error}</p></div>;
 
@@ -22,7 +31,14 @@ export function RequestList() {
         <div className="page">
             <div className="page-header">
                 <h1>Requests</h1>
-                <Link to="/new" className="button">New request</Link>
+                <div className="card-row" style={{ gap: 8 }}>
+                    {requests.length > 0 && (
+                        <button onClick={handleClear} className="button-secondary">
+                            Clear all
+                        </button>
+                    )}
+                    <Link to="/new" className="button">New request</Link>
+                </div>
             </div>
 
             {requests.length === 0 ? (
