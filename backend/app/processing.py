@@ -36,7 +36,7 @@ async def process(request_id: str, numbers: list[int]) -> None:
         store.update(request_id, status="processing", progress=0)
         store.append_log(request_id, "Starting processing...")
 
-        await asyncio.sleep(3)
+        await asyncio.sleep(5)
         store.append_log(request_id, "Validating data...")
         store.update(request_id, progress=30)
 
@@ -47,11 +47,12 @@ async def process(request_id: str, numbers: list[int]) -> None:
             store.append_log(request_id, "Invalid number in the list.")
             return
 
-        await asyncio.sleep(5)
+        await asyncio.sleep(8)
         store.append_log(request_id, "Calculating sum...")
         store.update(request_id, progress=70)
         result = sum(numbers)
 
+        await asyncio.sleep(3)
         store.update(request_id, status="completed", progress=100, result=result)
         store.append_log(request_id, "Finished successfully.")
     except asyncio.CancelledError:
